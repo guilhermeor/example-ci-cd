@@ -16,6 +16,6 @@ phases:
       - echo Pushing the Docker images...
       - docker push $REPOSITORY_URI
       - echo Writing image definitions file...
-      - printf '[{"name":"examplecicd","imageUri":"%s"}]' $REPOSITORY_URI > imagedefinitions.json
+      - printf '[{"name":"example-ci-cd","imageUri":"%s"}]' $REPOSITORY_URI > imagedefinitions.json
 artifacts:
     files: imagedefinitions.json
