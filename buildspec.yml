@@ -1,0 +1,21 @@
+﻿version: 0.2
+
+phases:
+  pre_build:
+    commands:
+      - docker login -u=$DOCKER_USER -p=$DOCKER_PASS    
+      - REPOSITORY_URI=guilhermerosa/examplecicd
+  build:
+    commands:
+      - echo Build started on `date`
+      - echo Building the Docker image...          
+      - docker build -t $REPOSITORY_URI ExampleCICD/.
+  post_build:
+    commands:
+      - echo Build completed on `date`
+      - echo Pushing the Docker images...
+      - docker push $REPOSITORY_URI
+      - echo Writing image definitions file...
+      - printf '[{"name":"ExampleCICD","imageUri":"%s"}]' $REPOSITORY_URI > imagedefinitions.json
+artifacts:
+    files: imagedefinitions.json
